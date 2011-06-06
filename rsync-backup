@@ -1,0 +1,20 @@
+#!/bin/sh
+
+if [ -r /etc/defaults/periodic.conf ]
+then
+	. /etc/defaults/periodic.conf
+	source_periodic_confs
+fi
+
+case "$rsync_backups_enable" in
+	[Yy][Ee][Ss])
+		script="$rsync_backups_dir/scripts/backup.sh"
+		config="$rsync_backups_dir/config/$rsync_backups_config"
+		"$script" "$config"
+		rc=$?
+	;;
+	*)
+		rc=0;;
+esac
+
+exit $rc
