@@ -100,11 +100,8 @@ make_backup()
 	src="$1"
 	backupdir="$2"
 	numkeep="$3"
-	cd "$backupdir"
-	init_backup
-	do_backup "$src" "$backupdir"
-	clean_backups $numkeep
-	exit_backup
+	mkdir -p "$backupdir"
+	cd "$backupdir" && init_backup && do_backup "$src" "$backupdir" && clean_backups $numkeep && exit_backup
 }
 
 config="$1"
